@@ -1,0 +1,108 @@
+---
+title: "pro2varselect"
+author: "Lina"
+date: "November 17, 2018"
+output: word_document
+---
+## import all 4*3 data sets into R by using "import dataset" option
+##NJ
+###1.1rent with low income
+```{r}
+library(Hmisc)
+NJRM <- c("senior","renth","edug","affc","hinch","SEX","BLDGSZ","PERSONS","ROOMS","VEHICL")
+NJRMNl <- rentalnjml[NJRM]
+maxnjrl <- as.matrix(NJRMNl)
+rcorr(maxnjrl[,-4], type = c("pearson","spearman"))
+lm <- lsfit(maxnjrl[,-4],maxnjrl[,4])
+```
+
+```{r}
+library(glmnet)
+library(dygraphs)
+library(coefplot)
+library(ggplot2)
+fit <- glmnet(maxnjrl[,-4],maxnjrl[,4], family = "binomial")
+plot(fit, xvar = "lambda", label = TRUE)
+coefpath(fit)
+```
+
+```{r}
+rcorr(maxnjrl[,-c(1,4,6)], type = c("pearson","spearman"))
+lm2 <- lsfit(maxnjrl[,-c(1,4,6)],maxnjrl[,4])
+summary(lm2)
+```
+
+###1.2 rent with high income
+```{r}
+library(Hmisc)
+NJRM <- c("senior","renth","edug","affc","hinch","SEX","BLDGSZ","PERSONS","ROOMS","VEHICL")
+NJRMNh <- rentalnjmh[NJRM]
+maxnjrh <- as.matrix(NJRMNh)
+rcorr(maxnjrh[,-4], type = c("pearson","spearman"))
+lm3 <- lsfit(maxnjrh[,-4],maxnjrh[,4])
+```
+
+```{r}
+library(glmnet)
+library(dygraphs)
+library(coefplot)
+library(ggplot2)
+fit2 <- glmnet(maxnjrh[,-4],maxnjrh[,4], family = "binomial")
+plot(fit2, xvar = "lambda", label = TRUE)
+coefpath(fit2)
+```
+
+```{r}
+rcorr(maxnjrh[,-c(4,6,7,8)], type = c("pearson","spearman"))
+lm4 <- lsfit(maxnjrh[,-c(4,6,7,8)],maxnjrh[,4])
+summary(lm4)
+```
+
+###owner with low income
+```{r}
+NJOM <- c("senior","morth","edug","affc","hinch","SEX","BLDGSZ","PERSONS","ROOMS","VEHICL")
+NJOMNl <- ownernjml[NJOM]
+maxnjol <- as.matrix(NJOMNl)
+```
+
+```{r}
+library(glmnet)
+library(dygraphs)
+library(coefplot)
+library(ggplot2)
+fit3 <- glmnet(maxnjol[,-4],maxnjol[,4], family = "binomial")
+plot(fit3, xvar = "lambda", label = TRUE)
+coefpath(fit3)
+```
+```{r}
+rcorr(maxnjol[,-c(1,4,6)], type = c("pearson","spearman"))
+lm5 <- lsfit(maxnjol[,-c(1,4,6)],maxnjol[,4])
+summary(lm5)
+```
+
+###owner with high income
+
+```{r}
+NJOM <- c("senior","morth","edug","affc","hinch","SEX","BLDGSZ","PERSONS","ROOMS","VEHICL")
+NJOMNh <- ownernjmh[NJOM]
+maxnjoh <- as.matrix(NJOMNh)
+```
+
+```{r}
+library(glmnet)
+library(dygraphs)
+library(coefplot)
+library(ggplot2)
+fit4 <- glmnet(maxnjoh[,-4],maxnjoh[,4], family = "binomial")
+plot(fit4, xvar = "lambda", label = TRUE)
+coefpath(fit4)
+```
+
+```{r}
+rcorr(maxnjoh[,-c(4,6,8)], type = c("pearson","spearman"))
+lm6 <- lsfit(maxnjol[,-c(4,6,8)],maxnjol[,4])
+summary(lm6)
+```
+
+
+##the same operation for AL and FL data
