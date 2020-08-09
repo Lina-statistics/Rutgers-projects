@@ -1,0 +1,336 @@
+---
+title: "glm data analysis"
+author: "Lina"
+date: "December 15, 2018"
+output: word_document
+---
+#Part I: market segment by kmean 
+##kmean elbow selected clusters
+###cluster 4
+
+```{r}
+library(dplyr)
+new <- subset(dfkep, cluster == 4)
+model1 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict1 <- predict(model1, new, se.fit=T,interval="confidence", level=.95)
+new1 <- cbind(predict1$fit,new)
+plot(model1)
+summary(model1)
+newp <- new1 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp$sales)
+sum(newp$sales)
+```
+
+
+###cluster 2
+
+```{r}
+library(dplyr)
+new <- subset(dfkep, cluster == 2)
+model2 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict2 <- predict(model2, new, se.fit=T,interval="confidence", level=.95)
+new2 <- cbind(predict2$fit,new)
+plot(model2)
+summary(model2)
+newp2 <- new2 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp2, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp2$sales)
+sum(newp2$sales)
+```
+
+###cluster6
+```{r}
+library(dplyr)
+new <- subset(dfkep, cluster == 6)
+model3 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict3 <- predict(model3, new, se.fit=T,interval="confidence", level=.95)
+new3 <- cbind(predict3$fit,new)
+plot(model3)
+summary(model3)
+newp3 <- new3 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp3, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+
+```{r}
+summary(newp3$sales)
+sum(newp3$sales)
+```
+
+##market segment by kmean silhouette selected clusters
+###cluster4
+```{r}
+new <- subset(dfksp, cluster == 4)
+model4 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict4 <- predict(model4, new, se.fit=T,interval="confidence", level=.95)
+new4 <- cbind(predict4$fit,new)
+plot(model4)
+summary(model4)
+newp4 <- new4 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp4, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+
+```{r}
+summary(newp4$sales)
+sum(newp4$sales)
+```
+
+###cluster5
+
+```{r}
+new <- subset(dfksp, cluster == 5)
+model5 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict5 <- predict(model5, new, se.fit=T,interval="confidence", level=.95)
+new5 <- cbind(predict5$fit,new)
+plot(model5)
+summary(model5)
+newp5 <- new5 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp5, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp5$sales)
+sum(newp5$sales)
+```
+
+###cluster1
+```{r}
+new <- subset(dfksp, cluster == 1)
+model6 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict6 <- predict(model6, new, se.fit=T,interval="confidence", level=.95)
+new6 <- cbind(predict6$fit,new)
+plot(model6)
+summary(model6)
+newp6 <- new6 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+```
+
+##market segment by kmean gap selected clusters
+###cluster 5
+
+```{r}
+new <- subset(dfkgp, cluster == 5)
+model7 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict7 <- predict(model7, new, se.fit=T,interval="confidence", level=.95)
+new7 <- cbind(predict7$fit,new)
+plot(model7)
+summary(model7)
+newp7 <- new7 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp7, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+```{r}
+summary(newp7$sales)
+sum(newp7$sales)
+```
+
+###cluster6
+```{r}
+new <- subset(dfkgp, cluster == 6)
+model8 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict8 <- predict(model8, new, se.fit=T,interval="confidence", level=.95)
+new8 <- cbind(predict8$fit,new)
+plot(model8)
+summary(model8)
+newp8 <- new8 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp8, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp8$sales)
+sum(newp8$sales)
+```
+
+###cluster1
+```{r}
+new <- subset(dfkgp, cluster == 1)
+model9 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict9 <- predict(model9, new, se.fit=T,interval="confidence", level=.95)
+new9 <- cbind(predict9$fit,new)
+plot(model9)
+summary(model9)
+newp9 <- new9 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp9, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+```{r}
+summary(newp9$sales)
+sum(newp9$sales)
+```
+
+###cluster 4
+```{r}
+new <- subset(dfkgp, cluster == 4)
+model10 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict10 <- predict(model10, new, se.fit=T,interval="confidence", level=.95)
+new10 <- cbind(predict10$fit,new)
+plot(model10)
+summary(model10)
+newp10 <- new10 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp10, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp10$sales)
+sum(newp10$sales)
+```
+
+
+
+#part II: hierarchical analysis
+##elbow selected clusters (cluster2,3,4)
+###cluster 2
+
+```{r}
+new <- subset(hccutep, cluster == 2)
+model11 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict11 <- predict(model11, new, se.fit=T,interval="confidence", level=.95)
+new11 <- cbind(predict11$fit,new)
+plot(model11)
+summary(model11)
+newp11 <- new11 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp11, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp11$sales)
+sum(newp11$sales)
+```
+
+
+###cluster 3
+
+```{r}
+new <- subset(hccutep, cluster == 3)
+model12 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict12 <- predict(model12, new, se.fit=T,interval="confidence", level=.95)
+new12 <- cbind(predict12$fit,new)
+plot(model12)
+summary(model12)
+newp12 <- new12 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp12, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp12$sales)
+sum(newp12$sales)
+```
+
+###cluster 4
+
+```{r}
+new <- subset(hccutep, cluster == 4)
+model13 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict13 <- predict(model13, new, se.fit=T,interval="confidence", level=.95)
+new13 <- cbind(predict13$fit,new)
+plot(model13)
+summary(model13)
+newp13 <- new13 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp13, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+
+```{r}
+summary(newp13$sales)
+sum(newp13$sales)
+```
+
+##si selected clusters (cluster2,3,4)
+###cluster 2
+
+```{r}
+new <- subset(hccutsp, cluster == 2)
+model14 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict14 <- predict(model14, new, se.fit=T,interval="confidence", level=.95)
+new14 <- cbind(predict14$fit,new)
+plot(model14)
+summary(model14)
+newp14 <- new14 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp14, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+###cluster 3
+
+```{r}
+new <- subset(hccutsp, cluster == 3)
+model15 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict15 <- predict(model15, new, se.fit=T,interval="confidence", level=.95)
+new15 <- cbind(predict15$fit,new)
+plot(model15)
+summary(model15)
+newp15 <- new15 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp15, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp15$sales)
+sum(newp15$sales)
+```
+
+###cluster 4
+```{r}
+new <- subset(hccutsp, cluster == 4)
+model16 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict16 <- predict(model16, new, se.fit=T,interval="confidence", level=.95)
+new16 <- cbind(predict16$fit,new)
+plot(model16)
+summary(model16)
+newp16 <- new16 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp16, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+```
+
+```{r}
+summary(newp16$sales)
+sum(newp16$sales)
+```
+##hcgap
+###cluster 4
+```{r}
+new <- subset(hccutpp, cluster == 4)
+model17 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict17 <- predict(model17, new, se.fit=T,interval="confidence", level=.95)
+new17 <- cbind(predict17$fit,new)
+plot(model17)
+summary(model17)
+newp17 <- new17 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp17, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+summary(newp17$sales)
+sum(newp17$sales)
+```
+
+###cluster5
+```{r}
+new <- subset(hccutpp, cluster == 5)
+model18 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict18 <- predict(model18, new, se.fit=T,interval="confidence", level=.95)
+new18 <- cbind(predict18$fit,new)
+plot(model18)
+summary(model18)
+newp18 <- new18 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp18, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+summary(newp18$sales)
+sum(newp18$sales)
+```
+
+###cluster8
+```{r}
+new <- subset(hccutpp, cluster == 22)
+model19 <- lm(salesl~PC1+PC2+PC3+PC4, data = new)
+predict19 <- predict(model19, new, se.fit=T,interval="confidence", level=.95)
+new19 <- cbind(predict19$fit,new)
+plot(model19)
+summary(model19)
+newp19 <- new19 %>% subset(salesl == 0) %>% mutate(sales=exp(fit)-1, up=exp(upr)-1, low=exp(lwr)-1)
+ggplot(newp19, aes(PC4,sales))+ geom_point(aes(y=sales), color="red") +geom_line(aes(y=low), color = "orange") + geom_line(aes(y=up), color = "green")
+summary(newp19$sales)
+sum(newp19$sales)
+```
+
+#part III: pam
+##elbow selected clusters (cluster2,3,4)
+###cluster 2
